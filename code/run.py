@@ -193,7 +193,7 @@ def main():
     os.chdir(sys.path[0])
 
     datasets = Datasets(ARGS.data, ARGS.task)
-    print(ARGS.data)
+    
 
     if ARGS.task == '1':
         model = YourModel()
