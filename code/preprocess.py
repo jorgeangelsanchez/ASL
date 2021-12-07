@@ -185,7 +185,8 @@ class Datasets():
             # ============================================================
 
             data_gen = tf.keras.preprocessing.image.ImageDataGenerator(
-                preprocessing_function=self.preprocess_fn, shear_range=0.2, zoom_range=0.2, horizontal_flip=True)
+                preprocessing_function=self.preprocess_fn, shear_range = 0.2, zoom_range = 0.2, 
+                horizontal_flip=True, rotation_range = 30, brightness_range=(.5,1.5))
 
             # ============================================================
             # horizontal_flip=True,
@@ -218,9 +219,7 @@ class Datasets():
             for dir_name in os.listdir(path):
                 if os.path.isdir(os.path.join(path, dir_name)):
                     unordered_classes.append(dir_name)
-            print("UNORDERED CLASSES",unordered_classes)
             for img_class in unordered_classes:
-                print("IMG CLASS", img_class)
                 self.idx_to_class[data_gen.class_indices[img_class]] = img_class
                 self.class_to_idx[img_class] = int(data_gen.class_indices[img_class])
                 self.classes[int(data_gen.class_indices[img_class])] = img_class
