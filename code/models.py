@@ -57,12 +57,12 @@ class YourModel(tf.keras.Model):
         #             explicitly reshape any tensors anywhere in your network.
 
         self.architecture = [
-               # Block 1
-            Conv2D(64, 3, 1, padding="same",
-                   activation="relu", name="block1_conv1"),
-            Conv2D(64, 3, 1, padding="same",
-                   activation="relu", name="block1_conv2"),
-            MaxPool2D(2, name="block1_pool"),
+       #         # Block 1
+       #      Conv2D(64, 3, 1, padding="same",
+       #             activation="relu", name="block1_conv1"),
+       #      Conv2D(64, 3, 1, padding="same",
+       #             activation="relu", name="block1_conv2"),
+       #      MaxPool2D(2, name="block1_pool"),
             # Block 2
             Conv2D(128, 3, 1, padding="same",
                    activation="relu", name="block2_conv1"),
@@ -77,28 +77,28 @@ class YourModel(tf.keras.Model):
             Conv2D(256, 3, 1, padding="same",
                    activation="relu", name="block3_conv3"),
             MaxPool2D(2, name="block3_pool"),
-            # Block 4
-            Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block4_conv1"),
-            Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block4_conv2"),
-            Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block4_conv3"),
-            MaxPool2D(2, name="block4_pool"),
-            # Block 5
-            Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block5_conv1"),
-            Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block5_conv2"),
-            Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block5_conv3"),
-            MaxPool2D(2, name="block5_pool"),
+       #      # Block 4
+       #      Conv2D(512, 3, 1, padding="same",
+       #             activation="relu", name="block4_conv1"),
+       #      Conv2D(512, 3, 1, padding="same",
+       #             activation="relu", name="block4_conv2"),
+       #      Conv2D(512, 3, 1, padding="same",
+       #             activation="relu", name="block4_conv3"),
+       #      MaxPool2D(2, name="block4_pool"),
+       #      # Block 5
+       #      Conv2D(512, 3, 1, padding="same",
+       #             activation="relu", name="block5_conv1"),
+       #      Conv2D(512, 3, 1, padding="same",
+       #             activation="relu", name="block5_conv2"),
+       #      Conv2D(512, 3, 1, padding="same",
+       #             activation="relu", name="block5_conv3"),
+       #      MaxPool2D(2, name="block5_pool"),
             
             Dropout(0.2),
             
             Flatten(data_format = None),
 
-            Dense(128, activation="relu"),
+       #      Dense(128, activation="relu"),
 
             Dense(26,activation = "softmax")
             ]
