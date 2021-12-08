@@ -57,12 +57,12 @@ class YourModel(tf.keras.Model):
         #             explicitly reshape any tensors anywhere in your network.
 
         self.architecture = [
-       #         # Block 1
-       #      Conv2D(64, 3, 1, padding="same",
-       #             activation="relu", name="block1_conv1"),
-       #      Conv2D(64, 3, 1, padding="same",
-       #             activation="relu", name="block1_conv2"),
-       #      MaxPool2D(2, name="block1_pool"),
+               # Block 1
+            Conv2D(64, 3, 1, padding="same",
+                   activation="relu", name="block1_conv1"),
+            Conv2D(64, 3, 1, padding="same",
+                   activation="relu", name="block1_conv2"),
+            MaxPool2D(2, name="block1_pool"),
             # Block 2
             Conv2D(128, 3, 1, padding="same",
                    activation="relu", name="block2_conv1"),
@@ -94,7 +94,7 @@ class YourModel(tf.keras.Model):
        #             activation="relu", name="block5_conv3"),
        #      MaxPool2D(2, name="block5_pool"),
             
-            Dropout(0.2),
+            Dropout(0.5),
             
             Flatten(data_format = None),
 
