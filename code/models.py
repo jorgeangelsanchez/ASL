@@ -60,8 +60,15 @@ class YourModel(tf.keras.Model):
               Conv2D(32, 3, 1, padding="same",
                     activation="relu", name="block1_conv1"),
               Conv2D(64, 3, 1, padding="same",
-                    activation="relu", name="block2_conv1"),
+                    activation="relu", name="block1_conv2"),
               MaxPool2D(2, name="block1_pool"),
+
+              Conv2D(128, 3, 1, padding="same",
+                    activation="relu", name="block2_conv1"),
+              Conv2D(256, 3, 1, padding="same",
+                    activation="relu", name="block2_conv2"),
+              MaxPool2D(2, name="block2_pool"),
+              
               Dropout(0.25),
               Flatten(),
               Dense(128, activation="relu"),
