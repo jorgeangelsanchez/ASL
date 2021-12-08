@@ -24,7 +24,7 @@ class YourModel(tf.keras.Model):
 
        #learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=False, name='Adam'
 
-        self.optimizer = tf.keras.optimizers.Adam(learning_rate = 0.001)
+        self.optimizer = tf.keras.optimizers.Adam(learning_rate = hp.learning_rate)
 
         # TODO: Build your own convolutional neural network, using Dropout at
         #       least once. The input image will be passed through each Keras
@@ -97,7 +97,9 @@ class YourModel(tf.keras.Model):
             Dropout(0.2),
             
             Flatten(data_format = None),
-            
+
+            Dense(128, activation="relu"),
+
             Dense(26,activation = "softmax")
             ]
 
