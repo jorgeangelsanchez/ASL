@@ -70,7 +70,7 @@ class Datasets():
 
         # Import images
         for i, file_path in enumerate(file_list):
-            img = Image.open(file_path)
+            img = Image.open(file_path).convert('L') #Converts to GRAYSCALE
             img = img.resize((hp.img_size, hp.img_size))
             img = np.array(img, dtype=np.float32)
             img /= 255.
@@ -187,7 +187,7 @@ class Datasets():
 
             data_gen = tf.keras.preprocessing.image.ImageDataGenerator(
                 preprocessing_function=self.preprocess_fn, shear_range = 0.2, zoom_range = 0.2, 
-                horizontal_flip=True, rotation_range = 30, brightness_range=(.8,1.2))
+                horizontal_flip=True, rotation_range = 30)
 
             # ============================================================
             # horizontal_flip=True,
