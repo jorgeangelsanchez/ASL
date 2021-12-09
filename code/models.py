@@ -57,7 +57,7 @@ class YourModel(tf.keras.Model):
         #             explicitly reshape any tensors anywhere in your network.
 
         self.architecture = [
-              Conv2D(32, 3, 1, padding="same",
+              Conv2D(64, 3, 1, padding="same",
                     activation="relu", name="block1_conv1"),
               Conv2D(64, 3, 1, padding="same",
                     activation="relu", name="block1_conv2"),
@@ -65,9 +65,15 @@ class YourModel(tf.keras.Model):
 
               Conv2D(128, 3, 1, padding="same",
                     activation="relu", name="block2_conv1"),
-              Conv2D(256, 3, 1, padding="same",
+              Conv2D(128, 3, 1, padding="same",
                     activation="relu", name="block2_conv2"),
               MaxPool2D(2, name="block2_pool"),
+
+              Conv2D(256, 3, 1, padding="same",
+                    activation="relu", name="block3_conv1"),
+              Conv2D(256, 3, 1, padding="same",
+                    activation="relu", name="block3_conv2"),
+              MaxPool2D(2, name="block3_pool"),
 
               Conv2D(512, 3, 1, padding="same",
                     activation="relu", name="block3_conv1"),
@@ -75,10 +81,25 @@ class YourModel(tf.keras.Model):
                     activation="relu", name="block3_conv2"),
               MaxPool2D(2, name="block3_pool"),
 
+       #      #Block 2
+       #      Conv2D(128, 3, 1, padding="same",
+       #             activation="relu", name="block2_conv1"),
+       #      Conv2D(128, 3, 1, padding="same",
+       #             activation="relu", name="block2_conv2"),
+       #      MaxPool2D(2, name="block2_pool"),
+       #      # Block 3
+       #      Conv2D(256, 3, 1, padding="same",
+       #             activation="relu", name="block3_conv1"),
+       #      Conv2D(256, 3, 1, padding="same",
+       #             activation="relu", name="block3_conv2"),
+       #      Conv2D(256, 3, 1, padding="same",
+       #             activation="relu", name="block3_conv3"),
+       #      MaxPool2D(2, name="block3_pool"),
+
               Dropout(0.25),
               Flatten(),
               Dense(128, activation="relu"),
-              Dropout(.5),
+              Dropout(.25),
               Dense(26, activation='softmax')
 
        #         # Block 1
