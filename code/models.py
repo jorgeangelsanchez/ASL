@@ -107,7 +107,7 @@ class YourModel(tf.keras.Model):
             MaxPool2D(2, name="block3_pool"),
             
               Flatten(),
-              Dense(256, activation="relu"),
+              Dense(128, activation="relu"),
               Dropout(.25),
               Dense(26, activation='softmax')
 
