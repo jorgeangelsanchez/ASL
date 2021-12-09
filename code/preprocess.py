@@ -70,14 +70,14 @@ class Datasets():
 
         # Import images
         for i, file_path in enumerate(file_list):
-            img = Image.open(file_path).convert('L') #Converts to GRAYSCALE
+            img = Image.open(file_path)
             img = img.resize((hp.img_size, hp.img_size))
             img = np.array(img, dtype=np.float32)
             img /= 255.
 
-            # Grayscale -> RGB
-            if len(img.shape) == 2:
-                img = np.stack([img, img, img], axis=-1)
+            # # Grayscale -> RGB
+            # if len(img.shape) == 2:
+            #     img = np.stack([img, img, img], axis=-1)
 
             data_sample[i] = img
 
