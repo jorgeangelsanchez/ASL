@@ -119,6 +119,7 @@ class YourModel(tf.keras.Model):
             
               Flatten(),
               Dense(128, activation="relu"),
+              Dense(64, activation="relu"),
               #Dropout(.2),
               Dense(26, activation='softmax')
 
