@@ -131,7 +131,7 @@ def train(model, datasets, checkpoint_path, logs_path, init_epoch):
 
     # Keras callbacks for training
     callback_list = [
-        tf.keras.callbacks.ReduceLROnPlateau(), #Added
+        #tf.keras.callbacks.ReduceLROnPlateau(), #Added
         tf.keras.callbacks.TensorBoard(
             log_dir=logs_path,
             update_freq='batch',
@@ -149,7 +149,7 @@ def train(model, datasets, checkpoint_path, logs_path, init_epoch):
         x=datasets.train_data,
         validation_data=datasets.test_data,
         epochs=hp.num_epochs,
-        batch_size=hp.batch_size, #Changed Batch Size
+        batch_size=None, #hp.batch_size, #Changed Batch Size
         callbacks=callback_list,
         initial_epoch=init_epoch,
     )
