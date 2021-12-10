@@ -122,14 +122,15 @@ class Datasets():
 
     def preprocess_fn(self, img):
         """ Preprocess function for ImageDataGenerator. """
-
         if self.task == '3':
             img = tf.keras.applications.vgg16.preprocess_input(img)
         else:
             img = img / 255.
-            plt.imshow(img)
-            img = self.standardize(img)
-            plt.imshow(img)
+            # plt.imshow(img)
+            # plt.show()
+            # #img = self.standardize(img)
+            # plt.imshow(img)
+            # plt.show()
             
         return img
 
