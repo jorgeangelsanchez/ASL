@@ -9,6 +9,7 @@ import random
 import numpy as np
 from PIL import Image
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 import hyperparameters as hp
 
@@ -40,7 +41,7 @@ class Datasets():
             os.path.join(self.data_path, "train/"), task == '3', True, True)
         self.test_data = self.get_data(
             os.path.join(self.data_path, "test/"), task == '3', False, False)
-        print(self.test_data[0])
+        
 
     def calc_mean_and_std(self):
         """ Calculate mean and standard deviation of a sample of the
@@ -126,7 +127,10 @@ class Datasets():
             img = tf.keras.applications.vgg16.preprocess_input(img)
         else:
             img = img / 255.
+            plt.imshow(img)
             img = self.standardize(img)
+            plt.imshow(img)
+            
         return img
 
     def custom_preprocess_fn(self, img):
