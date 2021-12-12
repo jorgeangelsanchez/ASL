@@ -102,19 +102,85 @@ plt.savefig("AccuracyEval.png")
 
 plt.show()
 
-# predicted_classes = cnn_model.predict_classes(X_test)
+predicted_classes = cnn_model.predict_classes(X_test)
 
-# L = 5
-# W = 5
+L = 5
+W = 5
 
-# fig, axes = plt.subplots(L, W, figsize = (12,12))
-# axes = axes.ravel()
+fig, axes = plt.subplots(L, W, figsize = (12,12))
+axes = axes.ravel()
 
-# for i in np.arange(0, L * W):  
-#     axes[i].imshow(X_test[i].reshape(28,28))
-#     axes[i].set_title(f"Prediction Class = {predicted_classes[i]:0.1f}\n True Class = {y_test[i]:0.1f}")
-#     axes[i].axis('off')
-# plt.subplots_adjust(wspace=0.5)
+for i in np.arange(0, L * W):  
+    axes[i].imshow(X_test[i].reshape(28,28))
+    axes[i].set_title(f"Prediction Class = {predicted_classes[i]:0.1f}\n True Class = {y_test[i]:0.1f}")
+    axes[i].axis('off')
+plt.subplots_adjust(wspace=0.5)
+plt.savefig("PredictionSample.png")
+
+from sklearn.metrics import confusion_matrix
+from sklearn import metrics
+cm = metrics.confusion_matrix(y_test, predicted_classes)
+
+#Defining function for confusion matrix plot
+def plot_confusion_matrix(y_true, y_pred, classes,
+                          normalize=False,
+                          title=True,
+                          cmap=plt.cm.Blues):
+    if not title:
+        if normalize:
+            title = 'Normalized confusion matrix'
+        else:
+            title = 'Confusion matrix, without normalization'
+
+    # Computing confusion matrix
+    cm = confusion_matrix(y_true, y_pred)
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+# Visualizing
+    fig, ax = plt.subplots(figsize=(10, 10))
+    im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
+    ax.figure.colorbar(im, ax=ax)
+    # We want to show all ticks...
+    ax.set(xticks=np.arange(cm.shape[1]),
+           yticks=np.arange(cm.shape[0]),
+           xticklabels=classes, yticklabels=classes,
+           title=title,
+           ylabel='True label',
+           xlabel='Predicted label')
+
+   # Rotating the tick labels and setting their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+             rotation_mode="anchor")
+    # Looping over data dimensions and create text annotations.
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            ax.text(j, i, format(cm[i, j], fmt),
+                    ha="center", va="center",
+                    color="white" if cm[i, j] > thresh else "black")
+    fig.tight_layout()
+    return ax
+np.set_printoptions(precision=2)
+
+#Specifying class labels
+class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'
+                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
+
+plt.figure(figsize=(20,20))
+plot_confusion_matrix(y_test, predicted_classes, classes = class_names, title='Non-Normalized Confusion matrix')
+plt.savefig("ConfusionMat.png")
+
+#Classification accuracy
+from sklearn.metrics import accuracy_score
+acc_score = accuracy_score(y_test, predicted_classes)
+print('Accuracy Score = ',acc_score)
+
+
 
 
 
