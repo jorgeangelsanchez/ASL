@@ -187,6 +187,12 @@ acc_score = accuracy_score(y_test, predicted_classes)
 print('Accuracy Score = ',acc_score)
 
 
+import visualkeras
+
+visualkeras.layered_view(cnn_model, to_file='output.png') # write to disk
+
+
+
 
 
 
