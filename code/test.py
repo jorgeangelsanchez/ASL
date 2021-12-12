@@ -12,7 +12,8 @@ print(test.shape)
 train_set = np.array(train, dtype = 'float32')
 test_set = np.array(test, dtype = 'float32')
 
-class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
+class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 
+                'N','O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
 X_train = train_set[:, 1:] / 255
 y_train = train_set[:, 0]
@@ -60,7 +61,7 @@ cnn_model.add(Flatten())
 
 cnn_model.add(Dense(units = 512, activation = 'relu'))
 cnn_model.add(Dropout(0.25))
-cnn_model.add(Dense(units = 25, activation = 'softmax'))
+cnn_model.add(Dense(units = 24, activation = 'softmax'))
 
 #Defining the Convolutional Neural Network
 cnn_model.summary()
@@ -102,6 +103,9 @@ plt.savefig("AccuracyEval.png")
 
 plt.show()
 
+alphadict = {0:'A', 1:'B', 2:'C', 3:'D', 4:'E', 5:'F', 6:'G', 7:'H', 8:'I', 10:'K', 11:'L', 12:'M',
+                 13:'N', 14:'O', 15:'P', 16:'Q', 17:'R', 18:'S', 19:'T', 20:'U', 21:'V', 22:'W', 23:'X', 24:'Y'}
+
 predicted_classes = cnn_model.predict_classes(X_test)
 
 L = 5
@@ -112,7 +116,7 @@ axes = axes.ravel()
 
 for i in np.arange(0, L * W):  
     axes[i].imshow(X_test[i].reshape(28,28))
-    axes[i].set_title(f"Prediction Class = {predicted_classes[i]:0.1f}\n True Class = {y_test[i]:0.1f}")
+    axes[i].set_title(f"Prediction Class = {alphadict[predicted_classes[i]]:0.1f}\n True Class = {alphadict[y_test[i]]:0.1f}")
     axes[i].axis('off')
 plt.subplots_adjust(wspace=0.5)
 plt.savefig("PredictionSample.png")
@@ -168,7 +172,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 np.set_printoptions(precision=2)
 
 #Specifying class labels
-class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'
+class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M',
                  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
 plt.figure(figsize=(20,20))
