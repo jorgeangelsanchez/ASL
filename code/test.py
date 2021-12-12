@@ -116,7 +116,7 @@ axes = axes.ravel()
 
 for i in np.arange(0, L * W):  
     axes[i].imshow(X_test[i].reshape(28,28))
-    axes[i].set_title(f"Prediction Class = {alphadict[predicted_classes[i]]:0.1f}\n True Class = {alphadict[y_test[i]]:0.1f}")
+    axes[i].set_title("Prediction Class = "+alphadict[predicted_classes[i]]+"\n True Class = "+alphadict[y_test[i]])
     axes[i].axis('off')
 plt.subplots_adjust(wspace=0.5)
 plt.savefig("PredictionSample.png")
