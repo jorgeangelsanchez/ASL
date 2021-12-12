@@ -117,8 +117,8 @@ class YourModel(tf.keras.Model):
                    activation="relu", name="block4_conv1"),
             Conv2D(512, 3, 1, padding="same",
                    activation="relu", name="block4_conv2"),
-       #       Conv2D(512, 3, 1, padding="same",
-       #             activation="relu", name="block4_conv3"),
+             Conv2D(512, 3, 1, padding="same",
+                   activation="relu", name="block4_conv3"),
             MaxPool2D(2, name="block4_pool"),
             
               Flatten(),
