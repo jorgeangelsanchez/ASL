@@ -12,8 +12,8 @@ print(test.shape)
 train_set = np.array(train, dtype = 'float32')
 test_set = np.array(test, dtype = 'float32')
 
-class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-                'N','O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
+class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
 X_train = train_set[:, 1:] / 255
 y_train = train_set[:, 0]
