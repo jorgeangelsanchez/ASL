@@ -16,7 +16,7 @@ A critical parameter that can dramatically affect whether training
 succeeds or fails. The value for this depends significantly on which
 optimizer is used. Refer to the default learning rate parameter
 """
-learning_rate = .5e-4
+learning_rate = 1e-4
 
 """
 Momentum on the gradient (if you use a momentum-based optimizer)
@@ -27,7 +27,7 @@ momentum = 0.01
 Resize image size for task 1. Task 3 must have an image size of 224,
 so that is hard-coded elsewhere.
 """
-img_size = 32
+img_size = 64
 
 """
 Sample size for calculating the mean and standard deviation of the
