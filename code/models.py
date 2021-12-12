@@ -103,8 +103,8 @@ class YourModel(tf.keras.Model):
        #      # Block 3
        #      Conv2D(256, 3, 1, padding="same",
        #             activation="relu", name="block3_conv1"),
-            Conv2D(256, 3, 1, padding="same",
-                   activation="relu", name="block3_conv3"),
+       #      Conv2D(256, 3, 1, padding="same",
+       #             activation="relu", name="block3_conv3"),
        #      #MaxPool2D(2, name="block3_pool"),
             Conv2D(256, 3, 1, padding="same",
                    activation="relu", name="block3_conv1"),
@@ -117,8 +117,8 @@ class YourModel(tf.keras.Model):
                    activation="relu", name="block4_conv1"),
             Conv2D(512, 3, 1, padding="same",
                    activation="relu", name="block4_conv2"),
-              Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block4_conv3"),
+              # Conv2D(512, 3, 1, padding="same",
+              #      activation="relu", name="block4_conv3"),
             MaxPool2D(2, name="block4_pool"),
             
              # Block 5
@@ -126,8 +126,8 @@ class YourModel(tf.keras.Model):
                    activation="relu", name="block5_conv1"),
             Conv2D(512, 3, 1, padding="same",
                    activation="relu", name="block5_conv2"),
-              Conv2D(512, 3, 1, padding="same",
-                   activation="relu", name="block5_conv3"),
+              # Conv2D(512, 3, 1, padding="same",
+              #      activation="relu", name="block5_conv3"),
             MaxPool2D(2, name="block5_pool"),
 
               Flatten(),
