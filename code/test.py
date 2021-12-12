@@ -12,8 +12,9 @@ print(test.shape)
 train_set = np.array(train, dtype = 'float32')
 test_set = np.array(test, dtype = 'float32')
 
+#Specifying class labels
 class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
+ 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
 X_train = train_set[:, 1:] / 255
 y_train = train_set[:, 0]
@@ -172,8 +173,9 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 np.set_printoptions(precision=2)
 
 #Specifying class labels
-class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
+#Specifying class labels
+class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+                 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
 plt.figure(figsize=(20,20))
 plot_confusion_matrix(y_test, predicted_classes, classes = class_names, title='Non-Normalized Confusion matrix')
