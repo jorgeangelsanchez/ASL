@@ -79,6 +79,8 @@ history = cnn_model.fit(X_train,
                         verbose = 1, 
                         validation_data = (X_validate, y_validate))
 
+cnn_model.save("our_model")
+
 #Visualizing the training performance
 plt.figure(figsize=(12, 8))
 
@@ -88,6 +90,7 @@ plt.plot(history.history['val_loss'], label='val_Loss')
 plt.legend()
 plt.grid()
 plt.title('Loss evolution')
+plt.savefig("LossEval.png")
 
 plt.subplot(2, 2, 2)
 plt.plot(history.history['accuracy'], label='accuracy')
@@ -95,5 +98,24 @@ plt.plot(history.history['val_accuracy'], label='val_accuracy')
 plt.legend()
 plt.grid()
 plt.title('Accuracy evolution')
+plt.savefig("AccuracyEval.png")
+
+plt.show()
+
+# predicted_classes = cnn_model.predict_classes(X_test)
+
+# L = 5
+# W = 5
+
+# fig, axes = plt.subplots(L, W, figsize = (12,12))
+# axes = axes.ravel()
+
+# for i in np.arange(0, L * W):  
+#     axes[i].imshow(X_test[i].reshape(28,28))
+#     axes[i].set_title(f"Prediction Class = {predicted_classes[i]:0.1f}\n True Class = {y_test[i]:0.1f}")
+#     axes[i].axis('off')
+# plt.subplots_adjust(wspace=0.5)
+
+
 
 
