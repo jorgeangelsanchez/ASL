@@ -103,8 +103,8 @@ class YourModel(tf.keras.Model):
        #      # Block 3
        #      Conv2D(256, 3, 1, padding="same",
        #             activation="relu", name="block3_conv1"),
-       #      Conv2D(256, 3, 1, padding="same",
-       #             activation="relu", name="block3_conv3"),
+            Conv2D(256, 3, 1, padding="same",
+                   activation="relu", name="block3_conv3"),
        #      #MaxPool2D(2, name="block3_pool"),
             Conv2D(256, 3, 1, padding="same",
                    activation="relu", name="block3_conv1"),
