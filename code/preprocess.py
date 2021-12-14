@@ -42,7 +42,6 @@ class Datasets():
         self.test_data = self.get_data(
             os.path.join(self.data_path, "test/"), task == '3', False, False)
         
-
     def calc_mean_and_std(self):
         """ Calculate mean and standard deviation of a sample of the
         training dataset for standardization.
