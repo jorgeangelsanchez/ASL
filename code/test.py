@@ -129,7 +129,7 @@ history = cnn_model.fit(data_gen.flow(X_train, y_train, subset='training'),
                         batch_size = hp.batch_size, 
                         epochs = hp.num_epochs, 
                         verbose = 1, 
-                        validation_data = data_gen.flow(X_train, y_train, subset='validation'))
+                        validation_data = data_gen.flow(X_validate, y_validate, subset='validation'))
 
 cnn_model.save("our_model")
 
