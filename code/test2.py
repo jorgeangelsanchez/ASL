@@ -2,12 +2,13 @@ import cv2 as cv
 import tensorflow as tf
 import numpy as np
 from time import sleep
+import matplotlib.pyplot as plt
 
-new_model = tf.keras.models.load_model("ASL/our_model")
+new_model = tf.keras.models.load_model("C:/Users/tmcar/cs1430/ASL/our_model")
 #new_model.summary()
 
 
-capture = cv.VideoCapture(0)
+capture = cv.VideoCapture(0)#
 
 imagesize = 160
 alphadict = {0:'A', 1:'B', 2:'C', 3:'D', 4:'E', 5:'F', 6:'G', 7:'H', 8:'I', 9:'J', 10:'K', 11:'L', 12:'M',
@@ -24,17 +25,21 @@ while True:
     cv.imshow('Hand', img)
     img = img.astype(np.float32)
     
-    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    img = np.array(img, dtype = 'float32')
-    img = img / 255
+    img = cv.cvtColor(img, cv.COLOR_RGB2GRAY)
+    # plt.imshow(img)
+    # plt.show()
+    #img = np.array(img, dtype = 'float32')
+    #img = img / 255
     
     cv.imshow('HandProcessed',img)
     img = cv.resize(img,(28,28))
     img = img.reshape(-1,28, 28, 1)
     #img = np.reshape(img, (28,28,1))
     #print(img.shape)
+    class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+ 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
-    print(alphadict[np.argmax(new_model.predict_on_batch(img))])
+    print(class_names[np.argmax(new_model.predict_on_batch(img))])
     #print(new_model.predict_on_batch(img))
     sleep(.1)
     if cv.waitKey(20) & 0xFF==ord('d'):
