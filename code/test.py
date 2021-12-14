@@ -3,8 +3,12 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 
-test = pd.read_csv("/home/theo_mcarn/sign_mnist_test.csv")
-train = pd.read_csv("/home/theo_mcarn/sign_mnist_train.csv")
+# test = pd.read_csv("/home/theo_mcarn/sign_mnist_test.csv")
+# train = pd.read_csv("/home/theo_mcarn/sign_mnist_train.csv")
+
+test = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_test(1)/sign_mnist_test.csv")
+train = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_test(1)/sign_mnist_test.csv")
+
 
 print(train.shape)
 print(test.shape)
@@ -32,6 +36,8 @@ X_validate = X_validate.reshape(X_validate.shape[0], *(28, 28, 1))
 print(X_train.shape)
 print(y_train.shape)
 print(X_validate.shape)
+
+#print("My Shape",X_test[0].shape)
 
 
 #Library for CNN Model
