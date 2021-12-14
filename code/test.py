@@ -3,11 +3,35 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 
-# test = pd.read_csv("/home/theo_mcarn/sign_mnist_test.csv")
-# train = pd.read_csv("/home/theo_mcarn/sign_mnist_train.csv")
+import tensorflow as tf
+import keras
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
+from keras.callbacks import TensorBoard
+import hyperparameters as hp
 
-test = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_test(1)/sign_mnist_test.csv")
-train = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_test(1)/sign_mnist_test.csv")
+#Run on GCP
+test = pd.read_csv("/home/theo_mcarn/sign_mnist_test.csv")
+train = pd.read_csv("/home/theo_mcarn/sign_mnist_train.csv")
+
+#Run Locally
+# test = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_test(1)/sign_mnist_test.csv")
+# train = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_train(1)/sign_mnist_train.csv")
+
+train_set = np.array(train)
+test_set = np.array(test)
+
+class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+ 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
+
+#See a random image for class label verification
+# i = random.randint(1,27455)
+# plt.imshow(train_set[i,1:].reshape((28,28))) 
+# plt.imshow(train_set[i,1:].reshape((28,28))) 
+# label_index = train["label"][i]
+# plt.title("Pre Float")
+# plt.axis('off')
+# plt.show()
 
 
 print(train.shape)
@@ -15,6 +39,14 @@ print(test.shape)
 
 train_set = np.array(train, dtype = 'float32')
 test_set = np.array(test, dtype = 'float32')
+
+# i = random.randint(1,27455)
+# plt.imshow(train_set[i,1:].reshape((28,28))) 
+# plt.imshow(train_set[i,1:].reshape((28,28))) 
+# label_index = train["label"][i]
+# plt.title("Post Float")
+# plt.axis('off')
+# plt.show()
 
 #Specifying class labels
 class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -25,6 +57,14 @@ y_train = train_set[:, 0]
 
 X_test = test_set[:, 1:] / 255
 y_test = test_set[:,0]
+
+
+# i = random.randint(1,27455)
+# plt.imshow(X_train[i].reshape((28,28))) 
+# label_index = train["label"][i]
+# plt.title("Post DIV")
+# plt.axis('off')
+# plt.show()
 
 from sklearn.model_selection import train_test_split
 X_train, X_validate, y_train, y_validate = train_test_split(X_train, y_train, test_size = 0.2,
@@ -37,16 +77,14 @@ print(X_train.shape)
 print(y_train.shape)
 print(X_validate.shape)
 
-#print("My Shape",X_test[0].shape)
+data_gen = tf.keras.preprocessing.image.ImageDataGenerator(
+                shear_range = 0.2,
+                zoom_range = 0.2, 
+                horizontal_flip=True,
+                rotation_range = 30)
 
+data_gen.fit(X_train)
 
-#Library for CNN Model
-import tensorflow as tf
-import keras
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
-from keras.callbacks import TensorBoard
-import hyperparameters as hp
 
 #Defining the Convolutional Neural Network
 
@@ -80,12 +118,18 @@ cnn_model.compile(loss ='sparse_categorical_crossentropy',
 
 
 #Training the CNN model
-history = cnn_model.fit(X_train, 
-                        y_train, 
+# history = cnn_model.fit(X_train, 
+#                         y_train, 
+#                         batch_size = hp.batch_size, 
+#                         epochs = hp.num_epochs, 
+#                         verbose = 1, 
+#                         validation_data = (X_validate, y_validate))
+
+history = cnn_model.fit(data_gen.flow(X_train, y_train, subset='training'), 
                         batch_size = hp.batch_size, 
                         epochs = hp.num_epochs, 
                         verbose = 1, 
-                        validation_data = (X_validate, y_validate))
+                        validation_data = data_gen.flow(X_train, y_train, subset='validation'))
 
 cnn_model.save("our_model")
 
