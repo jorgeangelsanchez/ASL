@@ -10,84 +10,36 @@ from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 from keras.callbacks import TensorBoard
 import hyperparameters as hp
 
+#Load in CSV files
 #Run on GCP
 test = pd.read_csv("/home/theo_mcarn/sign_mnist_test.csv")
 train = pd.read_csv("/home/theo_mcarn/sign_mnist_train.csv")
 
-#Run Locally
-# test = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_test(1)/sign_mnist_test.csv")
-# train = pd.read_csv("C:/Users/tmcar/cs1430/sign_mnist_train(1)/sign_mnist_train.csv")
-
+#Converts CSV to NP array
 train_set = np.array(train)
 test_set = np.array(test)
-
-class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
- 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
-
-#See a random image for class label verification
-# i = random.randint(1,27455)
-# plt.imshow(train_set[i,1:].reshape((28,28))) 
-# plt.imshow(train_set[i,1:].reshape((28,28))) 
-# label_index = train["label"][i]
-# plt.title("Pre Float")
-# plt.axis('off')
-# plt.show()
-
-
-print(train.shape)
-print(test.shape)
-
-train_set = np.array(train, dtype = 'float32')
-test_set = np.array(test, dtype = 'float32')
-
-# i = random.randint(1,27455)
-# plt.imshow(train_set[i,1:].reshape((28,28))) 
-# plt.imshow(train_set[i,1:].reshape((28,28))) 
-# label_index = train["label"][i]
-# plt.title("Post Float")
-# plt.axis('off')
-# plt.show()
 
 #Specifying class labels
 class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
 
-X_train = train_set[:, 1:] / 255
+#Converts arrays from into to float
+X_train = train_set[:, 1:] / 255 
 y_train = train_set[:, 0]
 
 X_test = test_set[:, 1:] / 255
 y_test = test_set[:,0]
 
 
-# i = random.randint(1,27455)
-# plt.imshow(X_train[i].reshape((28,28))) 
-# label_index = train["label"][i]
-# plt.title("Post DIV")
-# plt.axis('off')
-# plt.show()
-
 from sklearn.model_selection import train_test_split
+#Splits training dataset into training and validation sets
 X_train, X_validate, y_train, y_validate = train_test_split(X_train, y_train, test_size = 0.2,
                                                             random_state = 12345)
 X_train = X_train.reshape(X_train.shape[0], *(28, 28, 1))
 X_test = X_test.reshape(X_test.shape[0], *(28, 28, 1))
 X_validate = X_validate.reshape(X_validate.shape[0], *(28, 28, 1))
 
-print(X_train.shape)
-print(y_train.shape)
-print(X_validate.shape)
-
-data_gen = tf.keras.preprocessing.image.ImageDataGenerator(
-                shear_range = 0.2,
-                zoom_range = 0.2, 
-                horizontal_flip=True,
-                rotation_range = 30)
-
-data_gen.fit(X_train)
-
-
 #Defining the Convolutional Neural Network
-
 cnn_model = Sequential()
 
 cnn_model.add(Conv2D(32, (3, 3), input_shape = (28,28,1), activation='relu'))
@@ -118,22 +70,18 @@ cnn_model.compile(loss ='sparse_categorical_crossentropy',
 
 
 #Training the CNN model
-# history = cnn_model.fit(X_train, 
-#                         y_train, 
-#                         batch_size = hp.batch_size, 
-#                         epochs = hp.num_epochs, 
-#                         verbose = 1, 
-#                         validation_data = (X_validate, y_validate))
-
-history = cnn_model.fit(data_gen.flow(X_train, y_train, subset='training'), 
+history = cnn_model.fit(X_train, 
+                        y_train, 
                         batch_size = hp.batch_size, 
                         epochs = hp.num_epochs, 
                         verbose = 1, 
-                        validation_data = data_gen.flow(X_validate, y_validate, subset='validation'))
+                        validation_data = (X_validate, y_validate))
 
+#Saves our model to be used in Demo
 cnn_model.save("our_model")
 
 #Visualizing the training performance
+#Plots Loss and Accuracy
 plt.figure(figsize=(12, 8))
 
 plt.subplot(2, 2, 1)
@@ -142,7 +90,6 @@ plt.plot(history.history['val_loss'], label='val_Loss')
 plt.legend()
 plt.grid()
 plt.title('Loss evolution')
-plt.savefig("LossEval.png")
 
 plt.subplot(2, 2, 2)
 plt.plot(history.history['accuracy'], label='accuracy')
@@ -150,13 +97,12 @@ plt.plot(history.history['val_accuracy'], label='val_accuracy')
 plt.legend()
 plt.grid()
 plt.title('Accuracy evolution')
-plt.savefig("AccuracyEval.png")
+
+plt.savefig("AccuracyLossEvals.png")
 
 plt.show()
 
-alphadict = {0:'A', 1:'B', 2:'C', 3:'D', 4:'E', 5:'F', 6:'G', 7:'H', 8:'I', 9:'J', 10:'K', 11:'L', 12:'M',
-                 13:'N', 14:'O', 15:'P', 16:'Q', 17:'R', 18:'S', 19:'T', 20:'U', 21:'V', 22:'W', 23:'X', 24:'Y'}
-
+#Creates a 5x5 Grid of Prediction Samples
 predicted_classes = np.argmax(cnn_model.predict(X_test), axis=-1)
 
 L = 5
@@ -172,6 +118,7 @@ for i in np.arange(0, L * W):
 plt.subplots_adjust(wspace=0.5)
 plt.savefig("PredictionSample.png")
 
+#Creates Confusion Matrix
 from sklearn.metrics import confusion_matrix
 from sklearn import metrics
 cm = metrics.confusion_matrix(y_test, predicted_classes)
@@ -195,7 +142,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     else:
         print('Confusion matrix, without normalization')
 
-# Visualizing
+# Visualizing Confusion Matric
     fig, ax = plt.subplots(figsize=(10, 10))
     im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
     ax.figure.colorbar(im, ax=ax)
@@ -210,6 +157,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
    # Rotating the tick labels and setting their alignment.
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
              rotation_mode="anchor")
+
     # Looping over data dimensions and create text annotations.
     fmt = '.2f' if normalize else 'd'
     thresh = cm.max() / 2.
@@ -220,9 +168,9 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
     return ax
+
 np.set_printoptions(precision=2)
 
-#Specifying class labels
 #Specifying class labels
 class_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N',
                  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y' ]
@@ -236,10 +184,10 @@ from sklearn.metrics import accuracy_score
 acc_score = accuracy_score(y_test, predicted_classes)
 print('Accuracy Score = ',acc_score)
 
-
+#Visualizing CNN Architecture
 import visualkeras
 
-visualkeras.layered_view(cnn_model, to_file='output.png') # write to disk
+visualkeras.layered_view(cnn_model, to_file='output.png')
 
 
 
