@@ -1,6 +1,10 @@
+'''
+Heavily inspired by Dr. Kumar and his guide on ASL letter recognition
+https://analyticsindiamag.com/hands-on-guide-to-sign-language-classification-using-cnn/
+'''
+
 import pandas as pd
 import numpy as np
-import random
 import matplotlib.pyplot as plt
 
 import tensorflow as tf

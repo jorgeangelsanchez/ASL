@@ -1,7 +1,5 @@
 """
-Final Project
-CS1430 - Computer Vision
-Brown University
+The run file used from Project 5 to load in images, train model and evaluate
 """
 
 import os
